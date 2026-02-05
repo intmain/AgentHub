@@ -1,0 +1,119 @@
+/* General */
+"AgentHub" = "AgentHub";
+"설정" = "Settings";
+"일반" = "General";
+"데이터" = "Data";
+"정보" = "Info";
+"새로고침" = "Refresh";
+"버전" = "Version";
+"에이전트" = "Agent";
+
+/* Menu Bar */
+"대시보드 열기" = "Open Dashboard";
+"앱 종료" = "Quit App";
+
+/* Sessions */
+"활성 세션" = "Active Sessions";
+"세션 없음" = "No Sessions";
+"세션을 선택하세요" = "Select a session";
+"왼쪽 목록에서 세션을 선택하면\n상세 정보가 여기에 표시됩니다." = "Select a session from the list\nto view details here.";
+"AI 에이전트 세션이 감지되면\n여기에 표시됩니다." = "AI agent sessions will appear\nhere when detected.";
+"표시된 세션" = "Displayed Sessions";
+"전체" = "All";
+
+/* Session Details */
+"토큰 사용량" = "Token Usage";
+"예상 비용" = "Estimated Cost";
+"시간 정보" = "Time Info";
+"시작" = "Start";
+"마지막 활동" = "Last Activity";
+"지속 시간" = "Duration";
+"액션" = "Actions";
+"에이전트 로그 경로" = "Agent Log Path";
+"마지막 갱신" = "Last Refresh";
+
+/* Tokens */
+"Input" = "Input";
+"Output" = "Output";
+"Total" = "Total";
+"Cache Read" = "Cache Read";
+"Cache Write" = "Cache Write";
+"Input + Output" = "Input + Output";
+"총 토큰" = "Total Tokens";
+"총 비용" = "Total Cost";
+"비용" = "Cost";
+"토큰" = "Tokens";
+
+/* Status */
+"실행 중" = "Running";
+"활성" = "Active";
+
+/* Actions */
+"Finder에서 열기" = "Open in Finder";
+"VSCode에서 열기" = "Open in VSCode";
+"터미널에서 열기" = "Open in Terminal";
+
+/* Settings */
+"갱신 주기" = "Refresh Interval";
+"지금 새로고침" = "Refresh Now";
+"알림" = "Notifications";
+"음성 텍스트" = "Spoken Text";
+"사용 가능: {agent}, {project}" = "Available: {agent}, {project}";
+
+/* Time Intervals */
+"15초" = "15 sec";
+"30초" = "30 sec";
+"1분" = "1 min";
+"5분" = "5 min";
+
+/* CLI */
+"명령줄 도구" = "CLI Tool";
+"터미널에서 세션 모니터링" = "Monitor sessions in terminal";
+"CLI 설치" = "Install CLI";
+"CLI 제거" = "Uninstall CLI";
+"설치됨" = "Installed";
+"사용법:" = "Usage:";
+"agenthub          # 세션 목록\nagenthub watch    # 실시간 모니터링\nagenthub summary  # 요약" = "agenthub          # Session list\nagenthub watch    # Real-time monitoring\nagenthub summary  # Summary";
+"agenthub CLI" = "agenthub CLI";
+
+/* Alerts */
+"설치 실패" = "Install Failed";
+"설치 완료" = "Install Complete";
+"제거 완료" = "Uninstall Complete";
+"오류" = "Error";
+"터미널에서 'agenthub' 명령어를 사용할 수 있습니다." = "You can now use 'agenthub' command in terminal.";
+"CLI가 제거되었습니다." = "CLI has been removed.";
+"CLI 바이너리를 찾을 수 없습니다." = "CLI binary not found.";
+"테스트" = "Test";
+"확인" = "OK";
+"알 수 없는 오류" = "Unknown error";
+
+/* Log Viewer */
+"실시간 로그" = "Live Log";
+"실시간" = "Live";
+"자동 스크롤" = "Auto Scroll";
+"대기 중" = "Waiting";
+
+/* Settings - Additional */
+"로그인 시 자동 시작" = "Launch at Login";
+"비용 정보 표시" = "Show Cost Info";
+"음성 알림 (TTS)" = "Voice Notification (TTS)";
+"예: {agent} 작업 완료" = "e.g. {agent} task complete";
+"활성 세션 수" = "Active Sessions Count";
+"GitHub에서 보기" = "View on GitHub";
+"테스트 프로젝트" = "Test Project";
+
+/* Time */
+"방금 갱신" = "Just now";
+"%d분 전" = "%d min ago";
+"갱신:" = "Updated:";
+
+/* Status */
+"완료" = "Completed";
+"유휴" = "Idle";
+
+/* Notifications */
+"{agent} 작업 완료" = "{agent} task complete";
+"준비 완료" = "Ready";
+"작업 완료" = "Task Complete";
+"세션이 종료되었습니다" = "Session ended";

@@ -1,0 +1,831 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001 /* AgentHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001 /* AgentHubApp.swift */; };
+		A1000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000002 /* AppDelegate.swift */; };
+		A1000003 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000003 /* MenuBarView.swift */; };
+		A1000004 /* SessionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000004 /* SessionListView.swift */; };
+		A1000005 /* SessionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000005 /* SessionRowView.swift */; };
+		A1000006 /* SummaryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000006 /* SummaryHeaderView.swift */; };
+		A1000008 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000008 /* SessionViewModel.swift */; };
+		A1000009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000009 /* Assets.xcassets */; };
+		A1000010 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000012 /* DashboardView.swift */; };
+		A1000011 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = V1000001 /* Localizable.strings */; };
+		A2000001 /* AgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* AgentType.swift */; };
+		A2000002 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* SessionStatus.swift */; };
+		A2000003 /* AgentSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* AgentSession.swift */; };
+		A2000004 /* CostCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000004 /* CostCalculator.swift */; };
+		A2000005 /* ClaudeLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000005 /* ClaudeLogParser.swift */; };
+		A2000006 /* CodexLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000006 /* CodexLogParser.swift */; };
+		A2000007 /* GeminiLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000007 /* GeminiLogParser.swift */; };
+		A2000008 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000008 /* SessionService.swift */; };
+		A2000009 /* FileWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000009 /* FileWatcher.swift */; };
+		A2000010 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000010 /* SessionCache.swift */; };
+		A2000011 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000011 /* AppGroupStorage.swift */; };
+		A2000012 /* CliInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000012 /* CliInstaller.swift */; };
+		A4000001 /* AgentHubWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000001 /* AgentHubWidget.swift */; };
+		A4000002 /* SessionTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002 /* SessionTimelineProvider.swift */; };
+		A4000003 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000003 /* SmallWidgetView.swift */; };
+		A4000004 /* MediumWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000004 /* MediumWidgetView.swift */; };
+		A4000005 /* LargeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000005 /* LargeWidgetView.swift */; };
+		A4000006 /* WidgetAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1000006 /* WidgetAssets.xcassets */; };
+		A5000001 /* AgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* AgentType.swift */; };
+		A5000002 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* SessionStatus.swift */; };
+		A5000003 /* AgentSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* AgentSession.swift */; };
+		A5000004 /* CostCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000004 /* CostCalculator.swift */; };
+		A5000010 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000010 /* SessionCache.swift */; };
+		A6000001 /* AgentHubWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D2000001 /* AgentHubWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B0E19F952F313A0C00A99284 /* GeminiLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000007 /* GeminiLogParser.swift */; };
+		B0E19F962F313A0C00A99284 /* CostCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000004 /* CostCalculator.swift */; };
+		B0E19F982F313A0C00A99284 /* AgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000001 /* AgentType.swift */; };
+		B0E19F992F313A0C00A99284 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000002 /* SessionStatus.swift */; };
+		B0E19F9A2F313A0C00A99284 /* ClaudeLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000005 /* ClaudeLogParser.swift */; };
+		B0E19F9B2F313A0C00A99284 /* CodexLogParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000006 /* CodexLogParser.swift */; };
+		B0E19F9C2F313A0C00A99284 /* AgentSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000003 /* AgentSession.swift */; };
+		B0E19FA42F313C0D00A99284 /* AgentHubCli in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0E179C72F31399400A99284 /* AgentHubCli */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = P1000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = T3000001;
+			remoteInfo = AgentHubWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0E179C52F31399400A99284 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		B0E19FA32F313BF400A99284 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				B0E19FA42F313C0D00A99284 /* AgentHubCli in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2000002 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A6000001 /* AgentHubWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B0E179C72F31399400A99284 /* AgentHubCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AgentHubCli; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000001 /* AgentHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentHubApp.swift; sourceTree = "<group>"; };
+		B1000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B1000003 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		B1000004 /* SessionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListView.swift; sourceTree = "<group>"; };
+		B1000005 /* SessionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRowView.swift; sourceTree = "<group>"; };
+		B1000006 /* SummaryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeaderView.swift; sourceTree = "<group>"; };
+		B1000008 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
+		B1000009 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B1000010 /* AgentHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgentHub.entitlements; sourceTree = "<group>"; };
+		B1000011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1000012 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		C2000001 /* AgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentType.swift; sourceTree = "<group>"; };
+		C2000002 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
+		C2000003 /* AgentSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentSession.swift; sourceTree = "<group>"; };
+		C2000004 /* CostCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCalculator.swift; sourceTree = "<group>"; };
+		C2000005 /* ClaudeLogParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeLogParser.swift; sourceTree = "<group>"; };
+		C2000006 /* CodexLogParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodexLogParser.swift; sourceTree = "<group>"; };
+		C2000007 /* GeminiLogParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiLogParser.swift; sourceTree = "<group>"; };
+		C2000008 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		C2000009 /* FileWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWatcher.swift; sourceTree = "<group>"; };
+		C2000010 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
+		C2000011 /* AppGroupStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupStorage.swift; sourceTree = "<group>"; };
+		C2000012 /* CliInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CliInstaller.swift; sourceTree = "<group>"; };
+		D1000002 /* AgentHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgentHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2000001 /* AgentHubWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AgentHubWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1000001 /* AgentHubWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentHubWidget.swift; sourceTree = "<group>"; };
+		E1000002 /* SessionTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimelineProvider.swift; sourceTree = "<group>"; };
+		E1000003 /* SmallWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
+		E1000004 /* MediumWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidgetView.swift; sourceTree = "<group>"; };
+		E1000005 /* LargeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidgetView.swift; sourceTree = "<group>"; };
+		E1000006 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
+		E1000007 /* AgentHubWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgentHubWidget.entitlements; sourceTree = "<group>"; };
+		E1000008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		L1000001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		L1000002 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Resources/ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B0E179C82F31399400A99284 /* AgentHubCli */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AgentHubCli; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0E179C42F31399400A99284 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G1000001 = {
+			isa = PBXGroup;
+			children = (
+				G1000002 /* AgentHub */,
+				G2000001 /* AgentHubCore */,
+				G3000001 /* AgentHubWidget */,
+				B0E179C82F31399400A99284 /* AgentHubCli */,
+				G9000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G1000002 /* AgentHub */ = {
+			isa = PBXGroup;
+			children = (
+				G1000003 /* App */,
+				G1000004 /* Views */,
+				G1000005 /* ViewModels */,
+				G1000006 /* Utils */,
+				V1000001 /* Localizable.strings */,
+				B1000009 /* Assets.xcassets */,
+				B1000010 /* AgentHub.entitlements */,
+				B1000011 /* Info.plist */,
+			);
+			path = AgentHub;
+			sourceTree = "<group>";
+		};
+		G1000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B1000001 /* AgentHubApp.swift */,
+				B1000002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G1000004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B1000003 /* MenuBarView.swift */,
+				B1000004 /* SessionListView.swift */,
+				B1000005 /* SessionRowView.swift */,
+				B1000006 /* SummaryHeaderView.swift */,
+				B1000012 /* DashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G1000005 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B1000008 /* SessionViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		G1000006 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C2000012 /* CliInstaller.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		G2000001 /* AgentHubCore */ = {
+			isa = PBXGroup;
+			children = (
+				G2000002 /* Models */,
+				G2000003 /* Services */,
+				G2000004 /* Storage */,
+				G2000005 /* Utils */,
+			);
+			path = AgentHubCore;
+			sourceTree = "<group>";
+		};
+		G2000002 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C2000001 /* AgentType.swift */,
+				C2000002 /* SessionStatus.swift */,
+				C2000003 /* AgentSession.swift */,
+				C2000004 /* CostCalculator.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G2000003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C2000005 /* ClaudeLogParser.swift */,
+				C2000006 /* CodexLogParser.swift */,
+				C2000007 /* GeminiLogParser.swift */,
+				C2000008 /* SessionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		G2000004 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				C2000010 /* SessionCache.swift */,
+				C2000011 /* AppGroupStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		G2000005 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C2000009 /* FileWatcher.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		G3000001 /* AgentHubWidget */ = {
+			isa = PBXGroup;
+			children = (
+				E1000001 /* AgentHubWidget.swift */,
+				E1000002 /* SessionTimelineProvider.swift */,
+				G3000002 /* Views */,
+				E1000006 /* WidgetAssets.xcassets */,
+				E1000007 /* AgentHubWidget.entitlements */,
+				E1000008 /* Info.plist */,
+			);
+			path = AgentHubWidget;
+			sourceTree = "<group>";
+		};
+		G3000002 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1000003 /* SmallWidgetView.swift */,
+				E1000004 /* MediumWidgetView.swift */,
+				E1000005 /* LargeWidgetView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G9000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1000002 /* AgentHub.app */,
+				D2000001 /* AgentHubWidgetExtension.appex */,
+				B0E179C72F31399400A99284 /* AgentHubCli */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0E179C62F31399400A99284 /* AgentHubCli */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0E179CD2F31399400A99284 /* Build configuration list for PBXNativeTarget "AgentHubCli" */;
+			buildPhases = (
+				B0E179C32F31399400A99284 /* Sources */,
+				B0E179C42F31399400A99284 /* Frameworks */,
+				B0E179C52F31399400A99284 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B0E179C82F31399400A99284 /* AgentHubCli */,
+			);
+			name = AgentHubCli;
+			packageProductDependencies = (
+			);
+			productName = AgentHubCli;
+			productReference = B0E179C72F31399400A99284 /* AgentHubCli */;
+			productType = "com.apple.product-type.tool";
+		};
+		T1000001 /* AgentHub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = X1000001 /* Build configuration list for PBXNativeTarget "AgentHub" */;
+			buildPhases = (
+				S1000001 /* Sources */,
+				F3000001 /* Frameworks */,
+				R1000001 /* Resources */,
+				F2000002 /* Embed Foundation Extensions */,
+				B0E19FA32F313BF400A99284 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				Y1000002 /* PBXTargetDependency */,
+			);
+			name = AgentHub;
+			productName = AgentHub;
+			productReference = D1000002 /* AgentHub.app */;
+			productType = "com.apple.product-type.application";
+		};
+		T3000001 /* AgentHubWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = X3000001 /* Build configuration list for PBXNativeTarget "AgentHubWidgetExtension" */;
+			buildPhases = (
+				S3000001 /* Sources */,
+				F3000003 /* Frameworks */,
+				R3000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AgentHubWidgetExtension;
+			productName = AgentHubWidgetExtension;
+			productReference = D2000001 /* AgentHubWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		P1000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					B0E179C62F31399400A99284 = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+					T1000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					T3000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = X0000001 /* Build configuration list for PBXProject "AgentHub" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = ko;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ko,
+				Base,
+			);
+			mainGroup = G1000001;
+			productRefGroup = G9000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T1000001 /* AgentHub */,
+				T3000001 /* AgentHubWidgetExtension */,
+				B0E179C62F31399400A99284 /* AgentHubCli */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		R1000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000009 /* Assets.xcassets in Resources */,
+				A1000011 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		R3000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4000006 /* WidgetAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0E179C32F31399400A99284 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E19F952F313A0C00A99284 /* GeminiLogParser.swift in Sources */,
+				B0E19F962F313A0C00A99284 /* CostCalculator.swift in Sources */,
+				B0E19F982F313A0C00A99284 /* AgentType.swift in Sources */,
+				B0E19F992F313A0C00A99284 /* SessionStatus.swift in Sources */,
+				B0E19F9A2F313A0C00A99284 /* ClaudeLogParser.swift in Sources */,
+				B0E19F9B2F313A0C00A99284 /* CodexLogParser.swift in Sources */,
+				B0E19F9C2F313A0C00A99284 /* AgentSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		S1000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001 /* AgentHubApp.swift in Sources */,
+				A1000002 /* AppDelegate.swift in Sources */,
+				A1000003 /* MenuBarView.swift in Sources */,
+				A1000004 /* SessionListView.swift in Sources */,
+				A1000005 /* SessionRowView.swift in Sources */,
+				A1000006 /* SummaryHeaderView.swift in Sources */,
+				A1000008 /* SessionViewModel.swift in Sources */,
+				A1000010 /* DashboardView.swift in Sources */,
+				A2000001 /* AgentType.swift in Sources */,
+				A2000002 /* SessionStatus.swift in Sources */,
+				A2000003 /* AgentSession.swift in Sources */,
+				A2000004 /* CostCalculator.swift in Sources */,
+				A2000005 /* ClaudeLogParser.swift in Sources */,
+				A2000006 /* CodexLogParser.swift in Sources */,
+				A2000007 /* GeminiLogParser.swift in Sources */,
+				A2000008 /* SessionService.swift in Sources */,
+				A2000009 /* FileWatcher.swift in Sources */,
+				A2000010 /* SessionCache.swift in Sources */,
+				A2000011 /* AppGroupStorage.swift in Sources */,
+				A2000012 /* CliInstaller.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		S3000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4000001 /* AgentHubWidget.swift in Sources */,
+				A4000002 /* SessionTimelineProvider.swift in Sources */,
+				A4000003 /* SmallWidgetView.swift in Sources */,
+				A4000004 /* MediumWidgetView.swift in Sources */,
+				A4000005 /* LargeWidgetView.swift in Sources */,
+				A5000001 /* AgentType.swift in Sources */,
+				A5000002 /* SessionStatus.swift in Sources */,
+				A5000003 /* AgentSession.swift in Sources */,
+				A5000004 /* CostCalculator.swift in Sources */,
+				A5000010 /* SessionCache.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		Y1000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = T3000001 /* AgentHubWidgetExtension */;
+			targetProxy = F1000002 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		V1000001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				L1000001 /* en */,
+				L1000002 /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B0E179CB2F31399400A99284 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LHHKYA787;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B0E179CC2F31399400A99284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LHHKYA787;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		Z0000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		Z0000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		Z1000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AgentHub/AgentHub.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8LHHKYA787;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentHub/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agenthub.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		Z1000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AgentHub/AgentHub.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8LHHKYA787;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentHub/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agenthub.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		Z3000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = AgentHubWidget/AgentHubWidget.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8LHHKYA787;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentHubWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentHub;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agenthub.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		Z3000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = AgentHubWidget/AgentHubWidget.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 8LHHKYA787;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AgentHubWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AgentHub;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agenthub.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0E179CD2F31399400A99284 /* Build configuration list for PBXNativeTarget "AgentHubCli" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E179CB2F31399400A99284 /* Debug */,
+				B0E179CC2F31399400A99284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		X0000001 /* Build configuration list for PBXProject "AgentHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				Z0000001 /* Debug */,
+				Z0000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		X1000001 /* Build configuration list for PBXNativeTarget "AgentHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				Z1000001 /* Debug */,
+				Z1000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		X3000001 /* Build configuration list for PBXNativeTarget "AgentHubWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				Z3000001 /* Debug */,
+				Z3000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = P1000001 /* Project object */;
+}
