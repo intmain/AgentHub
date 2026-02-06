@@ -81,9 +81,9 @@ brew install intmain/agenthub/agenthub
 |-------|----------|-----------------------------------|
 | Claude Code | `~/.claude/projects/` | $3 / $15 (expensive but worth it) |
 | Codex CLI | `~/.codex/sessions/` | $2.5 / $10 (the middle child) |
-| Gemini CLI | `~/.gemini/logs/` | $0.1 / $0.4 (budget-friendly king) |
+| Gemini CLI | `~/.gemini/tmp/<projectHash>/chats/session-*.json` | $0.1 / $0.4 (budget-friendly king) |
 
-> **Note:** Gemini CLI support has never been tested in the wild. I wrote the parser based on documentation and hope. If you actually use Gemini CLI, please let me know if it works. Or doesn't. Contributions very welcome!
+> **Note:** Gemini CLI parsing now follows the actual storage structure above and maps active sessions to running project working directories.
 
 ---
 
