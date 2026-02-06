@@ -1,71 +1,82 @@
 import Foundation
 
-/// App Group 기반 공유 스토리지
+/// App Group Container 기반 공유 스토리지 (앱과 위젯 간)
 public class AppGroupStorage {
     public static let shared = AppGroupStorage()
 
-    private let appGroupId = "group.com.agenthub"
+    // App Group ID (엔타이틀먼트의 $(TeamIdentifierPrefix)group.com.agenthub 에 대응)
+    private let appGroupId = "8LHHKYA787.group.com.agenthub"
 
-    private var containerURL: URL? {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId)
+    private var containerURL: URL {
+        if let groupContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) {
+            return groupContainer
+        }
+        // Fallback
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("AgentHub")
     }
 
-    private var userDefaults: UserDefaults? {
-        UserDefaults(suiteName: appGroupId)
+    private init() {
+        ensureContainerExists()
     }
 
-    private init() {}
+    private func ensureContainerExists() {
+        let fm = FileManager.default
+        let dir = containerURL
+        if !fm.fileExists(atPath: dir.path) {
+            try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        }
+    }
 
-    // MARK: - UserDefaults
+    // MARK: - UserDefaults (호환성 유지)
+
+    private var userDefaults: UserDefaults {
+        UserDefaults(suiteName: appGroupId) ?? UserDefaults.standard
+    }
 
     public func set(_ value: Any?, forKey key: String) {
-        userDefaults?.set(value, forKey: key)
+        userDefaults.set(value, forKey: key)
     }
 
     public func value(forKey key: String) -> Any? {
-        userDefaults?.value(forKey: key)
+        userDefaults.value(forKey: key)
     }
 
     public func bool(forKey key: String) -> Bool {
-        userDefaults?.bool(forKey: key) ?? false
+        userDefaults.bool(forKey: key)
     }
 
     public func string(forKey key: String) -> String? {
-        userDefaults?.string(forKey: key)
+        userDefaults.string(forKey: key)
     }
 
     public func data(forKey key: String) -> Data? {
-        userDefaults?.data(forKey: key)
+        userDefaults.data(forKey: key)
     }
 
     public func remove(forKey key: String) {
-        userDefaults?.removeObject(forKey: key)
+        userDefaults.removeObject(forKey: key)
     }
 
     // MARK: - File Storage
 
-    public func fileURL(for filename: String) -> URL? {
-        containerURL?.appendingPathComponent(filename)
+    public func fileURL(for filename: String) -> URL {
+        ensureContainerExists()
+        return containerURL.appendingPathComponent(filename)
     }
 
     public func write(_ data: Data, to filename: String) throws {
-        guard let url = fileURL(for: filename) else {
-            throw StorageError.containerNotAvailable
-        }
-        try data.write(to: url)
+        let url = fileURL(for: filename)
+        try data.write(to: url, options: .atomic)
     }
 
     public func read(from filename: String) throws -> Data {
-        guard let url = fileURL(for: filename) else {
-            throw StorageError.containerNotAvailable
-        }
+        let url = fileURL(for: filename)
         return try Data(contentsOf: url)
     }
 
     public func delete(filename: String) throws {
-        guard let url = fileURL(for: filename) else {
-            throw StorageError.containerNotAvailable
-        }
+        let url = fileURL(for: filename)
         try FileManager.default.removeItem(at: url)
     }
 
@@ -75,13 +86,16 @@ public class AppGroupStorage {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         let data = try encoder.encode(object)
-        userDefaults?.set(data, forKey: key)
+        let url = fileURL(for: "\(key).json")
+        try data.write(to: url, options: .atomic)
     }
 
     public func load<T: Decodable>(forKey key: String) throws -> T? {
-        guard let data = userDefaults?.data(forKey: key) else {
+        let url = fileURL(for: "\(key).json")
+        guard FileManager.default.fileExists(atPath: url.path) else {
             return nil
         }
+        let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         return try decoder.decode(T.self, from: data)
@@ -98,7 +112,7 @@ public enum StorageError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .containerNotAvailable:
-            return "App Group 컨테이너를 사용할 수 없습니다."
+            return "공유 컨테이너를 사용할 수 없습니다."
         case .encodingFailed:
             return "데이터 인코딩에 실패했습니다."
         case .decodingFailed:

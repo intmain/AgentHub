@@ -1,51 +1,76 @@
 import Foundation
 
-/// 세션 데이터 캐시 (App Group 공유)
+/// 세션 데이터 캐시 (App Group Container 기반 공유 - 앱과 위젯 간)
 public class SessionCache {
     public static let shared = SessionCache()
 
-    // App Group ID (앱과 위젯 간 공유)
-    private let appGroupId = "group.com.agenthub"
-    private let sessionsKey = "cached_sessions"
-    private let summaryKey = "cached_summary"
-    private let lastUpdatedKey = "cache_last_updated"
+    // App Group ID (엔타이틀먼트의 $(TeamIdentifierPrefix)group.com.agenthub 에 대응)
+    private let appGroupId = "8LHHKYA787.group.com.agenthub"
 
-    private var userDefaults: UserDefaults {
-        // App Group이 설정되지 않은 경우 standard UserDefaults 사용
-        if let groupDefaults = UserDefaults(suiteName: appGroupId) {
-            return groupDefaults
+    private let sessionsFileName = "sessions.json"
+    private let summaryFileName = "summary.json"
+    private let lastUpdatedFileName = "last_updated"
+
+    /// App Group Container 디렉토리
+    /// 샌드박스된 위젯과 메인 앱 모두 접근 가능
+    private var cacheDirectory: URL {
+        if let groupContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) {
+            return groupContainer
         }
-        return UserDefaults.standard
+        // Fallback: App Group이 동작하지 않을 경우
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupport.appendingPathComponent("AgentHub")
     }
 
-    private init() {}
+    private init() {
+        ensureCacheDirectoryExists()
+    }
+
+    private func ensureCacheDirectoryExists() {
+        let fm = FileManager.default
+        let dir = cacheDirectory
+        if !fm.fileExists(atPath: dir.path) {
+            try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        }
+    }
 
     // MARK: - Sessions
 
     /// 세션 저장 (활성 세션만)
     public func save(sessions: [AgentSession]) {
-        let defaults = userDefaults
+        ensureCacheDirectoryExists()
+
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
+        encoder.outputFormatting = .prettyPrinted
 
         // 활성 세션만 저장
         let activeSessions = sessions.filter { $0.status.isActive }
 
+        // 세션 파일 저장
         if let data = try? encoder.encode(activeSessions) {
-            defaults.set(data, forKey: sessionsKey)
-            defaults.set(Date(), forKey: lastUpdatedKey)
+            let sessionsURL = cacheDirectory.appendingPathComponent(sessionsFileName)
+            try? data.write(to: sessionsURL, options: .atomic)
         }
 
-        // 요약 정보도 저장 (활성 세션 기준)
+        // 요약 정보 저장
         let summary = createSummary(from: activeSessions)
         if let summaryData = try? encoder.encode(summary) {
-            defaults.set(summaryData, forKey: summaryKey)
+            let summaryURL = cacheDirectory.appendingPathComponent(summaryFileName)
+            try? summaryData.write(to: summaryURL, options: .atomic)
         }
+
+        // 마지막 갱신 시간 저장
+        let timestampURL = cacheDirectory.appendingPathComponent(lastUpdatedFileName)
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+        try? timestamp.write(to: timestampURL, atomically: true, encoding: .utf8)
     }
 
     /// 세션 로드
     public func loadSessions() -> [AgentSession] {
-        guard let data = userDefaults.data(forKey: sessionsKey) else {
+        let sessionsURL = cacheDirectory.appendingPathComponent(sessionsFileName)
+
+        guard let data = try? Data(contentsOf: sessionsURL) else {
             return []
         }
 
@@ -57,7 +82,9 @@ public class SessionCache {
 
     /// 요약 로드 (위젯용)
     public func loadSummary() -> CachedSummary? {
-        guard let data = userDefaults.data(forKey: summaryKey) else {
+        let summaryURL = cacheDirectory.appendingPathComponent(summaryFileName)
+
+        guard let data = try? Data(contentsOf: summaryURL) else {
             return nil
         }
 
@@ -69,7 +96,11 @@ public class SessionCache {
 
     /// 마지막 갱신 시간
     public var lastUpdated: Date? {
-        userDefaults.object(forKey: lastUpdatedKey) as? Date
+        let timestampURL = cacheDirectory.appendingPathComponent(lastUpdatedFileName)
+        guard let str = try? String(contentsOf: timestampURL, encoding: .utf8) else {
+            return nil
+        }
+        return ISO8601DateFormatter().date(from: str)
     }
 
     // MARK: - Private
@@ -77,7 +108,7 @@ public class SessionCache {
     private func createSummary(from activeSessions: [AgentSession]) -> CachedSummary {
         return CachedSummary(
             activeCount: activeSessions.count,
-            totalCount: activeSessions.count,  // 활성 세션만 표시
+            totalCount: activeSessions.count,
             totalCost: CostCalculator.totalCost(sessions: activeSessions),
             totalTokens: CostCalculator.totalTokens(sessions: activeSessions).total,
             topSessions: Array(activeSessions.prefix(3)),
