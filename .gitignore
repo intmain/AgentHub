@@ -45,3 +45,6 @@ fastlane/screenshots
 fastlane/test_output
 AgentHub-export/
 AgentHub 2026-*/
+
+# Scripts (local only)
+scripts/
