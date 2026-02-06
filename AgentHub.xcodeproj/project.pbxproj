@@ -29,6 +29,7 @@
 		A2000010 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000010 /* SessionCache.swift */; };
 		A2000011 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000011 /* AppGroupStorage.swift */; };
 		A2000012 /* CliInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000012 /* CliInstaller.swift */; };
+		A2000013 /* WidgetRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2000013 /* WidgetRegistrar.swift */; };
 		A4000001 /* AgentHubWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000001 /* AgentHubWidget.swift */; };
 		A4000002 /* SessionTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000002 /* SessionTimelineProvider.swift */; };
 		A4000003 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1000003 /* SmallWidgetView.swift */; };
@@ -119,6 +120,7 @@
 		C2000010 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
 		C2000011 /* AppGroupStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupStorage.swift; sourceTree = "<group>"; };
 		C2000012 /* CliInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CliInstaller.swift; sourceTree = "<group>"; };
+		C2000013 /* WidgetRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRegistrar.swift; sourceTree = "<group>"; };
 		D1000002 /* AgentHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgentHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2000001 /* AgentHubWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AgentHubWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1000001 /* AgentHubWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentHubWidget.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				C2000012 /* CliInstaller.swift */,
+				C2000013 /* WidgetRegistrar.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				A2000010 /* SessionCache.swift in Sources */,
 				A2000011 /* AppGroupStorage.swift in Sources */,
 				A2000012 /* CliInstaller.swift in Sources */,
+				A2000013 /* WidgetRegistrar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

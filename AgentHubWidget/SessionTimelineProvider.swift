@@ -42,8 +42,21 @@ struct SessionTimelineProvider: TimelineProvider {
 
     private func loadEntry() -> SessionEntry {
         let cache = SessionCache.shared
+
+        // 파일 기반 캐시에서 데이터 로드 (에러 시 빈 데이터 반환)
         let summary = cache.loadSummary()
         let sessions = cache.loadSessions()
+
+        // 캐시가 30분 이상 오래된 경우 stale로 간주
+        if let lastUpdated = cache.lastUpdated,
+           Date().timeIntervalSince(lastUpdated) > 1800 {
+            // stale 데이터: 요약의 lastUpdated를 그대로 사용하여 UI에서 표시 가능
+            return SessionEntry(
+                date: Date(),
+                summary: summary,
+                sessions: sessions
+            )
+        }
 
         return SessionEntry(
             date: Date(),

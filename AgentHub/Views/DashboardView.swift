@@ -748,6 +748,9 @@ struct DashboardSettingsView: View {
                 .cornerRadius(8)
             }
 
+            // 위젯
+            WidgetSettingsSection()
+
             // CLI 설치
             VStack(alignment: .leading, spacing: 12) {
                 Text(String(localized: "명령줄 도구"))
@@ -1116,6 +1119,79 @@ struct LogLineView: View {
         case .user: return .blue
         case .system: return .secondary
         case .tool: return .orange
+        }
+    }
+}
+
+// MARK: - Widget Settings Section
+
+struct WidgetSettingsSection: View {
+    @State private var widgetStatus: WidgetRegistrar.Status = .unknown
+    @State private var isRegistering = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "위젯"))
+                .font(.headline)
+                .foregroundColor(.secondary)
+
+            VStack(spacing: 8) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "데스크탑 위젯"))
+                            .font(.system(size: 13, weight: .medium))
+                        Text(String(localized: "바탕화면에서 세션 현황을 확인합니다"))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    if widgetStatus == .registered {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                        Text(String(localized: "등록됨"))
+                            .font(.caption)
+                            .foregroundColor(.green)
+                    }
+                }
+
+                if widgetStatus == .notRegistered {
+                    Divider()
+                    Button {
+                        isRegistering = true
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            let success = WidgetRegistrar.register()
+                            DispatchQueue.main.async {
+                                isRegistering = false
+                                widgetStatus = success ? .registered : .notRegistered
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            if isRegistering {
+                                ProgressView()
+                                    .controlSize(.small)
+                            } else {
+                                Image(systemName: "puzzlepiece.extension")
+                            }
+                            Text(String(localized: "위젯 등록"))
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(isRegistering)
+                }
+            }
+            .padding()
+            .background(Color(NSColor.controlBackgroundColor))
+            .cornerRadius(8)
+        }
+        .onAppear {
+            DispatchQueue.global(qos: .userInitiated).async {
+                let status = WidgetRegistrar.checkStatus()
+                DispatchQueue.main.async {
+                    widgetStatus = status
+                }
+            }
         }
     }
 }

@@ -84,7 +84,7 @@ AgentHubMac/
 |---------|------|------|
 | Claude Code | `~/.claude/projects/{hash}/*.jsonl` | JSONL |
 | Codex CLI | `~/.codex/sessions/YYYY/MM/DD/*.jsonl` | JSONL |
-| Gemini CLI | `~/.gemini/logs/*.jsonl` | JSONL |
+| Gemini CLI | `~/.gemini/tmp/<projectHash>/chats/session-*.json` | JSON |
 
 **Claude 로그 파싱 최적화** (8초 → 1초):
 ```swift
