@@ -38,34 +38,49 @@ public class SessionService: ObservableObject {
 
     // MARK: - Public Methods
 
-    /// 수동 새로고침
+    /// 수동 새로고침 (3개 파서 병렬 실행)
     public func refresh() {
         isLoading = true
 
+        let claudeParser = self.claudeParser
+        let codexParser = self.codexParser
+        let geminiParser = self.geminiParser
+
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
+            var claudeSessions: [AgentSession] = []
+            var codexSessions: [AgentSession] = []
+            var geminiSessions: [AgentSession] = []
 
-            var allSessions: [AgentSession] = []
+            let group = DispatchGroup()
+            let queue = DispatchQueue.global(qos: .userInitiated)
 
-            // Claude 세션
-            let claudeSessions = self.claudeParser.getAllSessions()
-            allSessions.append(contentsOf: claudeSessions)
+            group.enter()
+            queue.async {
+                claudeSessions = claudeParser.getAllSessions()
+                group.leave()
+            }
 
-            // Codex 세션
-            let codexSessions = self.codexParser.getAllSessions()
-            allSessions.append(contentsOf: codexSessions)
+            group.enter()
+            queue.async {
+                codexSessions = codexParser.getAllSessions()
+                group.leave()
+            }
 
-            // Gemini 세션
-            let geminiSessions = self.geminiParser.getAllSessions()
-            allSessions.append(contentsOf: geminiSessions)
+            group.enter()
+            queue.async {
+                geminiSessions = geminiParser.getAllSessions()
+                group.leave()
+            }
 
-            // 최근 활동 순 정렬
+            group.wait()
+
+            var allSessions = claudeSessions + codexSessions + geminiSessions
             allSessions.sort { $0.lastActivityAt > $1.lastActivityAt }
 
             DispatchQueue.main.async {
-                self.sessions = allSessions
-                self.lastUpdated = Date()
-                self.isLoading = false
+                self?.sessions = allSessions
+                self?.lastUpdated = Date()
+                self?.isLoading = false
 
                 // 캐시 저장
                 SessionCache.shared.save(sessions: allSessions)

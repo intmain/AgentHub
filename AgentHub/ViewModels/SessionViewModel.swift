@@ -257,25 +257,25 @@ class SessionViewModel: ObservableObject {
         }
     }
 
-    /// 백그라운드에서 세션 로드 (nonisolated)
+    /// 백그라운드에서 세션 로드 (nonisolated, 3개 파서 병렬 실행)
     private nonisolated func loadSessionsInBackground() async -> [AgentSession] {
-        var allSessions: [AgentSession] = []
+        let claude = self.claudeParser
+        let codex = self.codexParser
+        let gemini = self.geminiParser
 
-        // Claude 세션
-        let claudeSessions = claudeParser.getAllSessions()
-        allSessions.append(contentsOf: claudeSessions)
+        var allSessions = await withTaskGroup(of: [AgentSession].self) { group in
+            group.addTask { claude.getAllSessions() }
+            group.addTask { codex.getAllSessions() }
+            group.addTask { gemini.getAllSessions() }
 
-        // Codex 세션
-        let codexSessions = codexParser.getAllSessions()
-        allSessions.append(contentsOf: codexSessions)
+            var results: [AgentSession] = []
+            for await sessions in group {
+                results.append(contentsOf: sessions)
+            }
+            return results
+        }
 
-        // Gemini 세션
-        let geminiSessions = geminiParser.getAllSessions()
-        allSessions.append(contentsOf: geminiSessions)
-
-        // 최근 활동 순 정렬
         allSessions.sort { $0.lastActivityAt > $1.lastActivityAt }
-
         return allSessions
     }
 

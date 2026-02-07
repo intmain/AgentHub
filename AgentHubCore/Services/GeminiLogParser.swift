@@ -62,23 +62,12 @@ public class GeminiLogParser {
         return resolveProjectMappings(cwdByPID: cwdByPID)
     }
 
-    /// 다중 패턴으로 Gemini PID 탐지
+    /// Gemini PID 탐지 (단일 pgrep 호출로 통합)
     private func getRunningGeminiPIDs() -> Set<String> {
-        let patterns: [[String]] = [
-            ["-x", "gemini"],
-            ["-x", "gemini-cli"],
-            ["-f", "gemini-cli"],
-            ["-f", "@google/gemini-cli"],
-            ["-f", "bin/gemini"],
-            ["-f", "google-gemini"]
-        ]
-
-        var pids = Set<String>()
-        for pattern in patterns {
-            pids.formUnion(runPgrep(arguments: pattern))
-        }
-
-        return pids
+        // 모든 Gemini 관련 프로세스(gemini, gemini-cli, @google/gemini-cli, bin/gemini, google-gemini)는
+        // 커맨드라인에 "gemini"를 포함하므로 단일 호출로 충분.
+        // false positive PID는 이후 projectHash 매칭에서 걸러짐.
+        return runPgrep(arguments: ["-f", "gemini"])
     }
 
     private func runPgrep(arguments: [String]) -> Set<String> {

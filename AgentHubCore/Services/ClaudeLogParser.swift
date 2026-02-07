@@ -106,6 +106,21 @@ public class ClaudeLogParser {
         }
     }
 
+    /// usage가 있는 라인 전용 최소 구조체 (model, usage만 디코딩)
+    private struct UsageEntry: Decodable {
+        let message: UsageMessage?
+        struct UsageMessage: Decodable {
+            let model: String?
+            let usage: Usage?
+        }
+        struct Usage: Decodable {
+            let input_tokens: Int?
+            let output_tokens: Int?
+            let cache_creation_input_tokens: Int?
+            let cache_read_input_tokens: Int?
+        }
+    }
+
     /// 프로젝트 매핑 정보
     public struct ProjectMapping {
         public let hash: String
@@ -163,15 +178,19 @@ public class ClaudeLogParser {
 
     /// 모든 세션 가져오기 (활성 프로젝트만 파싱하여 최적화)
     public func getAllSessions(maxAgeDays: Int = 7) -> [AgentSession] {
+        let t0 = CFAbsoluteTimeGetCurrent()
         let runningDirs = getRunningClaudeWorkingDirs()
+        let t1 = CFAbsoluteTimeGetCurrent()
 
         // 실행 중인 프로세스가 없으면 빈 배열 반환
         if runningDirs.isEmpty {
+            NSLog("[Perf:Claude] pgrep+lsof: %.0fms (no running)", (t1 - t0) * 1000)
             return []
         }
 
         // 실행 중인 프로젝트만 찾아서 파싱
         let activeProjects = getActiveProjects(runningDirs: runningDirs)
+        let t2 = CFAbsoluteTimeGetCurrent()
 
         var sessions: [AgentSession] = []
 
@@ -183,6 +202,11 @@ public class ClaudeLogParser {
             )
             sessions.append(contentsOf: projectSessions)
         }
+        let t3 = CFAbsoluteTimeGetCurrent()
+
+        NSLog("[Perf:Claude] pgrep+lsof: %.0fms | getActiveProjects: %.0fms | parseSessions: %.0fms | total: %.0fms (%d projects, %d sessions)",
+              (t1 - t0) * 1000, (t2 - t1) * 1000, (t3 - t2) * 1000, (t3 - t0) * 1000,
+              activeProjects.count, sessions.count)
 
         // 최근 활동 순으로 정렬
         return sessions.sorted { $0.lastActivityAt > $1.lastActivityAt }
@@ -320,48 +344,93 @@ public class ClaudeLogParser {
         return sessions
     }
 
-    /// 단일 로그 파일 파싱
+    /// 단일 로그 파일 파싱 (선택적 디코딩 최적화)
+    ///
+    /// 최적화 전략:
+    /// - 첫/끝 라인에서 timestamp만 문자열 추출 (JSON 풀 디코딩 안함)
+    /// - "usage" 포함 라인만 UsageEntry 최소 구조체로 디코딩
+    /// - 나머지 74%의 라인은 완전히 스킵
     private func parseSingleLogFile(logFile: (name: String, path: String, mtime: Date), project: ProjectMapping, isProcessActive: Bool) -> AgentSession? {
-        let entries = parseLogFileEntries(logFile.path)
-        guard !entries.isEmpty else { return nil }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: logFile.path)),
+              !data.isEmpty else {
+            return nil
+        }
 
         // 세션 ID (파일명에서 추출)
         let sessionId = (logFile.name as NSString).deletingPathExtension
 
-        // 토큰 집계
+        var startTime = logFile.mtime
+        var lastActivity = logFile.mtime
         var totalInput = 0
         var totalOutput = 0
         var cacheRead = 0
         var cacheWrite = 0
         var model = "claude-sonnet-4-20250514"
-        var lastActivity = Date.distantPast
-        var startTime = Date.distantFuture
+        let decoder = JSONDecoder()
 
-        for entry in entries {
-            if let usage = entry.message?.usage {
-                totalInput += usage.input_tokens ?? 0
-                totalOutput += usage.output_tokens ?? 0
-                cacheRead += usage.cache_read_input_tokens ?? 0
-                cacheWrite += usage.cache_creation_input_tokens ?? 0
+        // Data를 직접 줄 단위로 처리 (String 변환 및 중간 배열 생성 없이)
+        let usageMarker = Data("\"usage\"".utf8)
+        let timestampMarker = Data("\"timestamp\":\"".utf8)
+        var isFirstLine = true
+        var lastLineStart = data.startIndex
+        var hasAnyLine = false
+
+        var lineStart = data.startIndex
+        while lineStart < data.endIndex {
+            // 줄 끝 찾기
+            var lineEnd = lineStart
+            while lineEnd < data.endIndex && data[lineEnd] != UInt8(ascii: "\n") {
+                lineEnd = data.index(after: lineEnd)
             }
 
-            if let entryModel = entry.message?.model {
-                model = entryModel
+            let lineRange = lineStart..<lineEnd
+            let lineLength = lineRange.count
+
+            // 빈 라인 스킵 (공백만 있는 라인 포함)
+            if lineLength > 0 {
+                let lineData = data[lineRange]
+                let isEmpty = lineData.allSatisfy { $0 == UInt8(ascii: " ") || $0 == UInt8(ascii: "\t") || $0 == UInt8(ascii: "\r") }
+
+                if !isEmpty {
+                    hasAnyLine = true
+
+                    // 첫 라인에서 timestamp 추출
+                    if isFirstLine {
+                        isFirstLine = false
+                        if let ts = extractTimestampFromData(lineData, marker: timestampMarker) {
+                            startTime = ts
+                        }
+                    }
+                    lastLineStart = lineStart
+
+                    // "usage" 포함 라인만 최소 디코딩
+                    if lineData.range(of: usageMarker) != nil {
+                        if let entry = try? decoder.decode(UsageEntry.self, from: lineData) {
+                            if let usage = entry.message?.usage {
+                                totalInput += usage.input_tokens ?? 0
+                                totalOutput += usage.output_tokens ?? 0
+                                cacheRead += usage.cache_read_input_tokens ?? 0
+                                cacheWrite += usage.cache_creation_input_tokens ?? 0
+                            }
+                            if let entryModel = entry.message?.model {
+                                model = entryModel
+                            }
+                        }
+                    }
+                }
             }
 
-            if let timestampStr = entry.timestamp,
-               let entryTime = parseTimestamp(timestampStr) {
-                if entryTime < startTime { startTime = entryTime }
-                if entryTime > lastActivity { lastActivity = entryTime }
-            }
+            // 다음 라인으로
+            lineStart = lineEnd < data.endIndex ? data.index(after: lineEnd) : data.endIndex
         }
 
-        // 타임스탬프가 없으면 파일 시간 사용
-        if startTime == Date.distantFuture {
-            startTime = logFile.mtime
-        }
-        if lastActivity == Date.distantPast {
-            lastActivity = logFile.mtime
+        guard hasAnyLine else { return nil }
+
+        // 마지막 비어있지 않은 라인에서 timestamp 추출
+        let lastLineEnd = data[lastLineStart...].firstIndex(of: UInt8(ascii: "\n")) ?? data.endIndex
+        let lastLineData = data[lastLineStart..<lastLineEnd]
+        if let ts = extractTimestampFromData(lastLineData, marker: timestampMarker) {
+            lastActivity = ts
         }
 
         // 비용 계산
@@ -403,39 +472,43 @@ public class ClaudeLogParser {
         )
     }
 
-    /// JSONL 파일 파싱
-    private func parseLogFileEntries(_ filePath: String) -> [LogEntry] {
-        var entries: [LogEntry] = []
+    // MARK: - DateFormatter 캐싱 (static으로 1회만 생성)
 
-        guard let content = try? String(contentsOfFile: filePath, encoding: .utf8) else {
-            return entries
-        }
+    private static let iso8601WithFractional: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return f
+    }()
 
-        let lines = content.components(separatedBy: .newlines)
-        let decoder = JSONDecoder()
+    private static let iso8601Basic: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime]
+        return f
+    }()
 
-        for line in lines {
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
-            guard !trimmed.isEmpty,
-                  let data = trimmed.data(using: .utf8) else { continue }
-
-            if let entry = try? decoder.decode(LogEntry.self, from: data) {
-                entries.append(entry)
-            }
-        }
-
-        return entries
-    }
-
-    /// 타임스탬프 파싱 (ISO8601)
+    /// 타임스탬프 파싱 (ISO8601) - static formatter 사용
     private func parseTimestamp(_ string: String) -> Date? {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        if let date = formatter.date(from: string) {
+        if let date = Self.iso8601WithFractional.date(from: string) {
             return date
         }
-        formatter.formatOptions = [.withInternetDateTime]
-        return formatter.date(from: string)
+        return Self.iso8601Basic.date(from: string)
+    }
+
+    /// JSON 풀 디코딩 없이 라인에서 "timestamp":"..." 값만 추출
+    private func extractTimestamp(from line: String) -> String? {
+        guard let range = line.range(of: "\"timestamp\":\"") else { return nil }
+        let start = range.upperBound
+        guard let end = line[start...].firstIndex(of: "\"") else { return nil }
+        return String(line[start..<end])
+    }
+
+    /// Data 슬라이스에서 timestamp 추출 (String 변환 최소화)
+    private func extractTimestampFromData(_ lineData: Data.SubSequence, marker: Data) -> Date? {
+        guard let markerRange = lineData.range(of: marker) else { return nil }
+        let start = markerRange.upperBound
+        guard let quoteIndex = lineData[start...].firstIndex(of: UInt8(ascii: "\"")) else { return nil }
+        guard let tsString = String(data: lineData[start..<quoteIndex], encoding: .utf8) else { return nil }
+        return parseTimestamp(tsString)
     }
 
     /// 활성 세션만 가져오기
